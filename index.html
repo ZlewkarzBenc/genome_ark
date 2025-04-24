@@ -1,0 +1,121 @@
+---
+layout: none
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Species Overview</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      padding: 20px;
+    }
+
+    table {
+      width: 80%;
+      margin: 0 auto;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #eee;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    .species-image {
+      width: 100px;
+      border-radius: 10px;
+    }
+
+    .image-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
+    .bionano-badge {
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      background-color: red;
+      color: white;
+      padding: 5px 8px;
+      font-size: 12px;
+      font-weight: bold;
+      border-radius: 3px;
+    }
+
+    .attribution {
+      font-size: 0.8em;
+      color: #666;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 0.9em;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+<h1 style="text-align:center;">Species Overview</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>Common Name</th>
+      <th>Latin Name</th>
+      <th>Family</th>
+      <th>Order</th>
+      <th># of Sequenced Samples</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for species in site.species %}
+    <tr>
+      <td>
+        <div class="image-wrapper">
+          {% assign bionano_found = false %}
+          {% for sample in species.samples %}
+            {% if sample.datatype == "Bionano" %}
+              {% assign bionano_found = true %}
+            {% endif %}
+          {% endfor %}
+          {% if bionano_found %}
+            <div class="bionano-badge">Bionano</div>
+          {% endif %}
+          <a href="{{ species.url }}">
+            <img src="{{ species.image }}" alt="{{ species.common_name }}" class="species-image">
+          </a>
+          <div class="attribution">{{ species.image_attribution }}</div>
+        </div>
+      </td>
+      <td>{{ species.common_name }}</td>
+      <td><i>{{ species.name }}</i></td>
+      <td>{{ species.family.name }}</td>
+      <td>{{ species.order.name }}</td>
+      <td>{{ species.samples | size }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<footer>
+  Author: AJ
+</footer>
+
+</body>
+</html>
