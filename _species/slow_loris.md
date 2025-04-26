@@ -1,4 +1,5 @@
 ---
+layout: species
 name: Nycticebus coucang
 individuals:
 - short_name: mNycCou1

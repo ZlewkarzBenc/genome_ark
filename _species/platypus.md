@@ -1,4 +1,5 @@
 ---
+layout: species
 short_name: mOrnAna
 name: Ornithorhynchus anatinus
 taxon_id: 9258
